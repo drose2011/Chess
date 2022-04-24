@@ -16,7 +16,7 @@ public class ChessAI {
 		if(allpossible.length!=0){
 			//minnmax returns the index (withinin all available moves) of the move it 
 			//wishs to take. it currently goes 5 lvls deep.
-			int mv = minnmax(0,5,board,-1000000,1000000)[0];
+			int mv = minnmax(0,4,board,-1000000,1000000)[0];
 			return allpossible[mv];
 		} else {
 			return null;
