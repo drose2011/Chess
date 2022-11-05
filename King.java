@@ -2,9 +2,9 @@ import java.util.*;
 
 /*
 The King class:
-	- inherites all of Piece's class
-		- modifies hasMoved and setHasMoved to decied castle
-	- returns the allowed move for a Rook in a givin posision on a givin board
+	- inherits from Piece
+		- modifies hasMoved and setHasMoved to decide castle
+	- returns the allowed move for a King in a given position on a given board
 */
 
 public class King extends Piece {
@@ -29,49 +29,51 @@ public class King extends Piece {
 		int row = rowOf(clickedPieceIndex);
 		int col = colOf(clickedPieceIndex);
 		// starts to the top left of the king and works its way across and then down, adding all empty/enemy-occupied spots
-		for(int i=-1;i<=1;i++){
-			for(int j=-1;j<=1;j++){
-				if(inRange(row+i) && inRange(col+j)){
-					if(pieces[posToNum((row+i),(col+j))]==null){
-						allowed.add(posToNum((row+i),(col+j)));
-					} else if(pieces[posToNum((row+i),(col+j))].getSide()!=pieces[clickedPieceIndex].getSide()){
-						allowed.add(0,posToNum((row+i),(col+j)));
+		for(int i = -1; i <= 1; i++) {
+			for(int j = -1; j <= 1; j++) {
+				if(inRange(row + i) && inRange(col + j)) {
+					if(pieces[posToNum(row + i, col + j)] == null ||
+					   pieces[posToNum(row + i, col + j)].getSide() != pieces[clickedPieceIndex].getSide()) {
+						allowed.add(posToNum(row + i, col + j));
 					}
 				}
 			}
 		}
 
-		//allows for castling
+		// Allows for castling
 		if(!this.hasMoved){
 			Boolean allo;
-			//allows it on the left
-			if(pieces[posToNum(row,0)]!=null&&pieces[posToNum(row,0)].toString().equals("rook")&&pieces[posToNum(row,1)]==null&&pieces[posToNum(row,2)]==null&&pieces[posToNum(row,3)]==null){
+			// allows it on the left
+			if(pieces[posToNum(row,0)] != null &&
+			   pieces[posToNum(row,0)].toString().equals("rook") &&
+			   pieces[posToNum(row,1)] == null && pieces[posToNum(row,2)] == null &&
+			   pieces[posToNum(row,3)] == null){
 				allo=true;
-				for(int i=1;i<4;i++){
+				for(int i = 1; i < 4; i++){
 					Board temp = new Board(pieces,1);
 					temp.moveOverRide(clickedPieceIndex,posToNum(row,i));
-					if(temp.checkCheck(1,true)!=0){
-						allo=false;
+					if(temp.checkCheck(1,true) != 0){
+						allo = false;
 						break;
 					}
 				}
 				if(allo){
-					allowed.add(clickedPieceIndex-2);
+					allowed.add(clickedPieceIndex - 2);
 				}
 			}
 			//allows it on the right
-			if(pieces[posToNum(row,7)]!=null&&pieces[posToNum(row,7)].toString().equals("rook")&&pieces[posToNum(row,6)]==null&&pieces[posToNum(row,5)]==null){
-				allo=true;
-				for(int i=6;i>4;i--){
+			if(pieces[posToNum(row,7)] != null && pieces[posToNum(row,7)].toString().equals("rook") && pieces[posToNum(row,6)] == null && pieces[posToNum(row,5)] == null){
+				allo = true;
+				for(int i = 6; i > 4; i--){
 					Board temp = new Board(pieces,0);
 					temp.moveOverRide(clickedPieceIndex,posToNum(row,i));
-					if(temp.checkCheck(1,true)!=0){
-						allo=false;
+					if(temp.checkCheck(1,true) != 0){
+						allo = false;
 						break;
 					}
 				}
 				if(allo){
-					allowed.add(clickedPieceIndex+2);
+					allowed.add(clickedPieceIndex + 2);
 				}
 			}
 		}

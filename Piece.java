@@ -10,86 +10,94 @@ The Piece class:
 	- returns the image based on side and name
 */
 
-//the generaric piece class that all the pieces are stored as. has very little functinoallity
-// except to make an array of it and also to provide general functinos used in many pieces.
+// the generic piece class that all the pieces inherit from
+// provides general functions
 public class Piece {
-	private String side;
-	private String name;
-	private int value;
+	private String side;  	// 'w' = white (-1), 'b' = black (1)
+	private String name; 
+	private int value; 		// 1 = pawn, 3 = bishop/knight, 5 = rook, 9 = queen, 1000 = king
 
 	public Piece(String name, String side) {
-		this.side=side;
-		this.name=name;
+		this.side = side;
+		this.name = name;
 		switch (name) {
 			case "pawn":
-				this.value=1*getSideMod();
+				this.value=1 * getSideMod();
 				break;
 			case "knight": case "bishop":
-				this.value=3*getSideMod();
+				this.value=3 * getSideMod();
 				break;
 			case "rook":
-				this.value=5*getSideMod();
+				this.value=5 * getSideMod();
 				break;
 			case "queen":
-				this.value=9*getSideMod();
+				this.value=9 * getSideMod();
 				break;
 			case "king":
-				this.value=1000*getSideMod();
+				this.value=1000 * getSideMod();
 				break;
 		}
 	}
 
 
-	//returns the image of the givin piece based on
-	public Image getImage(){
+	// get image of piece to display
+	public Image getImage() {
 		try{
 			URL url = getClass().getResource("Pics/"+this.side+"_"+this.name+".png");
 			Image img = new Image(url.openStream());
 			return img;
-		}catch(Exception e){
+		} catch(Exception e) {
 			return null;
 		}
 	}
 
 
+	/*
+	 *	HELPER FUNCTIONS
+	 */
 
-	//common methods used in all the piece classes
-	public int[] arrListToArr(ArrayList<Integer> list){
+	// convert arrayList<Integer> to int[]
+	// TODO: is this already a built in function?
+	public int[] arrListToArr(ArrayList<Integer> list) {
 		int[] arr = new int[list.size()];
-		for(int i=0;i<list.size();i++){
-			arr[i]=list.get(i);
+		for(int i = 0; i < list.size(); i++){
+			arr[i] = list.get(i);
 		}
 		return arr;
 	}
+
+	// positional helpers
 	public int colOf(int num){
-		return num%8;
+	    if(num < 0){
+			return -1;
+		}
+		return num % 8;
 	}
 	public int rowOf(int num){
-		if(num<0){
+		if(num < 0){
 			return -1;
 		}
 		return num/8;
 	}
-	//inputs row and col, outputs number of square
+	// converts row and col to number of square
 	public int posToNum(int row, int col){
-		if(inRange(row)&&inRange(col)){
-			return row*8+col;
+		if(inRange(row) && inRange(col)){
+			return row * 8 + col;
 		} else {
 			return 64;
 		}
 	}
 	//if row and col are on the board
 	public boolean inRange(int num){
-		if(num>=0&&num<8){
+		if(num >= 0 && num < 8){
 			return true;
 		}
 		return false;
 	}
 
 
-
-
-	//methods defined in (some) later classes, but needed here to be able to call in Piece[]
+	// methods defined in (some) later classes, but needed here to be able to call in Piece[]
+	// TODO: are these necissary?
 	public int[] getAllowed(Piece[] board, int clickedPieceIndex){
 		return null;
 	}
@@ -104,9 +112,12 @@ public class Piece {
 	}
 
 
-	//getters
+	/*
+	 *  GETTERS
+	 */
+
 	public int getSideMod(){
-		if(this.side=="w"){
+		if(this.side == "w"){
 			return -1;
 		}
 		return 1;
@@ -114,8 +125,9 @@ public class Piece {
 	public String getSide(){
 		return this.side;
 	}
+	@Override
 	public String toString(){
-		return this.name;
+		return this.side + this.name;
 	}
 	public int getValue(){
 		return this.value;

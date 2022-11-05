@@ -9,7 +9,7 @@ import java.io.*;
 
 /*
 The ChessFX class:
-	- uses javaFX to display the board as three idendically sizes flowpanes of a stackpane
+	- uses javaFX to display the board as three identically sizes flowpanes of a stackpane
 		- flowpane 1 has the checkered grid, along with the coloring of the clicked piece
 		- flowpane 2 has the images of the pieces
 		- flowpane 3 has an array of clickable buttons used to interact
@@ -30,28 +30,28 @@ public class ChessFX extends Application {
 		Board board = new Board();
 		ChessAI chessAI = new ChessAI();
 
-		// makes clickable buttons array for input using a flowPane that is placed ontop of the board
+		// makes clickable buttons array for input using a flowPane that is placed on top of the board
 		FlowPane buttonflow = new FlowPane();
 		Button[] buttons = new Button[64];
-		// because the button click handler has to made dynamicly, it can not affect anything 
-		// outside directly, so to track which button is which, I store the memory adresses and 
+		// because the button click handler has to made dynamically, it can not affect anything
+		// outside directly, so to track which button is which, I store the memory addresses and
 		// later search it
-		ArrayList<String> adress = new ArrayList<String>();
+		ArrayList<String> address = new ArrayList<String>();
 		Boolean hasPiece = false;
 		int index;
-		for(int i=0;i<64;i++){
-			buttons[i]=new Button();
+		for(int i = 0; i < 64; i++){
+			buttons[i] = new Button();
 			buttons[i].setMinSize(75,75);
 			buttons[i].setStyle("-fx-background-color:transparent;");
 			buttonflow.getChildren().add(buttons[i]);
-			adress.add(String.valueOf(buttons[i]));
+			address.add(String.valueOf(buttons[i]));
 			buttons[i].setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			// Gives the same function to every button, but eachone will give back a uniqe
 			//input using stored memory
 			public void handle(ActionEvent e) {
-				board.clicked(adress.indexOf(e.getSource().toString()), false);
-				if(Math.abs(board.gameStatus())==2){
+				board.clicked(address.indexOf(e.getSource().toString()), false);
+				if(Math.abs(board.gameStatus()) == 2){
 					System.out.print("GAME OVER, ");
 					if(board.gameStatus()<0){
 						System.out.print("Black");

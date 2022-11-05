@@ -2,13 +2,13 @@ import java.util.*;
 
 /*
 The Rook class:
-	- inherites all of Piece's class
-	- returns the allowed move for a Rook in a givin posision on a givin board
+	- inherits from Piece
+	- returns the allowed moves for a Rook in a given position on a given board
 */
 
 public class Rook extends Piece {
 	public Rook(String side) {
-		super("rook",side);
+		super("rook", side);
 	}
 
 	//returns the possible places it can move based on the current pos and board state
@@ -16,52 +16,57 @@ public class Rook extends Piece {
 		ArrayList<Integer> allowed = new ArrayList<Integer>();
 		int row = rowOf(clickedPieceIndex);
 		int col = colOf(clickedPieceIndex);
+		String side = this.getSide()
 		Boolean up=true, down=true, left=true, right=true;
 		
-		//single loop that goes in each direction till it runs into something
-		//I could not find a concise way to write it
-		for(int i=1;inRange(col-i)||inRange(col+i)||inRange(row-i)||inRange(row+i);i++){
-			if(inRange(col-i)&&left){
-				if(pieces[posToNum(row,col-i)]!=null){
-					if(pieces[posToNum(row,col-i)].getSide()!=pieces[clickedPieceIndex].getSide()){
-						allowed.add(0,posToNum(row,col-i));
-					}
-					left=false;
-				} else {
-					allowed.add(posToNum(row,col-i));
-				}
-			}
-			if(inRange(col+i)&&right){
-				if(pieces[posToNum(row,col+i)]!=null){
-					if(pieces[posToNum(row,col+i)].getSide()!=pieces[clickedPieceIndex].getSide()){
-						allowed.add(0,posToNum(row,col+i));
-					}
-					right=false;
-				} else {
-					allowed.add(posToNum(row,col+i));
-				}
-			}
-			if(inRange(row-i)&&down){
-				if(pieces[posToNum(row-i,col)]!=null){
-					if(pieces[posToNum(row-i,col)].getSide()!=pieces[clickedPieceIndex].getSide()){
-						allowed.add(0,posToNum(row-i,col));
-					}
-					down=false;
-				} else {
-					allowed.add(posToNum(row-i,col));
-				}
-			}
-			if(inRange(row+i)&&up){
-				if(pieces[posToNum(row+i,col)]!=null){
-					if(pieces[posToNum(row+i,col)].getSide()!=pieces[clickedPieceIndex].getSide()){
-						allowed.add(0,posToNum(row+i,col));
-					}
-					up=false;
-				} else {
-					allowed.add(posToNum(row+i,col));
-				}
-			}
+		// Add all vertical spots available
+		int start = 0, end = 8;
+		for (int checkRow = 0; inRange(checkRow); checkRow++) {
+		    if (pieces[posToNum(checkRow, col)] != null) {
+		        if (checkRow < row) {
+		            start = checkRow;
+		            if (pieces[posToNum(checkRow, col)].getSide(), == side) {
+		                start++;
+		            }
+		        } else if (checkRow > row) {
+		            end = checkRow;
+		            if (pieces[posToNum(checkRow, col)].getSide(), == side) {
+		                end--;
+		            }
+		            break;
+		        }
+		    }
 		}
+		for (int i = start; i <= end; i++) {
+		    if (i != row) {
+		        allowed.add(posToNum(i, col));
+		    }
+		}
+
+		// Add all horizontal spots available
+		int start = 0, end = 8;
+		for (int checkCol = 0; inRange(checkCol); checkCol++) {
+		    if (pieces[posToNum(row, checkCol)] != null) {
+		        if (checkCol < col) {
+		            start = checkCow;
+		            if (pieces[posToNum(row, checkCol)].getSide(), == side) {
+		                start++;
+		            }
+		        } else if (checkCol > col) {
+		            end = checkCol;
+		            if (pieces[posToNum(row, checkCol)].getSide(), == side) {
+		                end--;
+		            }
+		            break;
+		        }
+		    }
+		}
+		for (int i = start; i <= end; i++) {
+		    if (i != col) {
+		        allowed.add(posToNum(row, i));
+		    }
+		}
+
 		return arrListToArr(allowed);
 	}
 }

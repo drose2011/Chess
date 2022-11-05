@@ -2,10 +2,10 @@ import java.util.*;
 
 /*
 The ChessAI class:
-	- huisticlly evaluates a board based on rows away from start, piece value, and check status
+	- heuristically evaluates a board based on rows away from start, piece value, and check status
 	- uses minmax to determine the best move
-		- recursivly goes 5 layers deep
-		- uses alpha beta pruning to signifigantly decrese number of boards that need to be evaled
+		- goes 5 layers deep
+		- uses alpha beta pruning to significantly decrease number of boards that need to be evaluated
 
 */
 
@@ -72,7 +72,7 @@ public class ChessAI {
 			return ret;
 		}
 
-		//starting record=oposite of what you want
+		//starting record=opposite of what you want
 		if(lvl%2==0){
 			record=-1000000;
 		} else {
