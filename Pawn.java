@@ -25,7 +25,7 @@ public class Pawn extends Piece {
 		ArrayList<Integer> allowed = new ArrayList<Integer>();
 		int row = rowOf(clickedPieceIndex);
 		int col = colOf(clickedPieceIndex);
-		String side = super.getSize();
+		String side = super.getSide();
 		int dirc = super.getSideMod();
 
 		if(inRange(row + dirc)){

@@ -22,9 +22,16 @@ public class Queen extends Piece {
 		Piece bishop = new Bishop(side);
 		Piece rook = new Rook(side);
 
-		allowed.add(bishop.getAllowed());
-		allowed.add(rook.getAllowed());
+		int[] bishopAllowed = bishop.getAllowed(pieces, clickedPieceIndex);
+		int[] rookAllowed = rook.getAllowed(pieces, clickedPieceIndex);
 
+		for(int i=0; i<bishopAllowed.length; i++) {
+			allowed.add(bishopAllowed[i]);
+		}
+		for(int i=0; i<rookAllowed.length; i++) {
+			allowed.add(rookAllowed[i]);
+		}
+		
 		return arrListToArr(allowed);
 	}
 }

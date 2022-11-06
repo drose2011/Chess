@@ -23,9 +23,9 @@ public class Bishop extends Piece {
 				    // Once it runs into a piece on a diagonal,
 				    // it adds it to allowed if it is on the opposite side,
 				    // and then stops looking along that diagonal
-				    checkRow = row + (a * i);
-				    checkCol = col + (a * j);
-				    checkNum = posToNum(checkRow, checkCol);
+				    int checkRow = row + (a * i);
+				    int checkCol = col + (a * j);
+				    int checkNum = posToNum(checkRow, checkCol);
 					if(pieces[checkNum] != null) {
 						if(pieces[checkNum].getSide() != pieces[clickedPieceIndex].getSide()){
 							allowed.add(checkNum);

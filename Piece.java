@@ -17,9 +17,15 @@ public class Piece {
 	private String name; 
 	private int value; 		// 1 = pawn, 3 = bishop/knight, 5 = rook, 9 = queen, 1000 = king
 
+	public Boolean doublejump;
+
 	public Piece(String name, String side) {
 		this.side = side;
 		this.name = name;
+		if(side != "w" && side != "b"){
+			throw new IllegalArgumentException("Invalid piece side: \"" + side + "\".\n Must be \"b\" or \"w\".");
+		}
+		// TODO: make this a dict lookup
 		switch (name) {
 			case "pawn":
 				this.value=1 * getSideMod();
@@ -36,6 +42,9 @@ public class Piece {
 			case "king":
 				this.value=1000 * getSideMod();
 				break;
+			default:
+				throw new IllegalArgumentException("Invalid piece name: \"" + 
+					name + "\".\n Must be \"pawn\", \"knight\", \"bishop\", \"rook\", \"queen\", or \"king\".");
 		}
 	}
 
@@ -68,24 +77,23 @@ public class Piece {
 
 	// positional helpers
 	public int colOf(int num){
-	    if(num < 0){
-			return -1;
+		if(num < 0 || num > 63) {
+			throw new IllegalArgumentException("num " + num + " not in range. (0-63)");
 		}
 		return num % 8;
 	}
 	public int rowOf(int num){
-		if(num < 0){
-			return -1;
+		if(num < 0 || num > 63) {
+			throw new IllegalArgumentException("num " + num + " not in range. (0 to 63)");
 		}
 		return num/8;
 	}
 	// converts row and col to number of square
 	public int posToNum(int row, int col){
-		if(inRange(row) && inRange(col)){
-			return row * 8 + col;
-		} else {
-			return 64;
+		if(!inRange(row) || !inRange(col)){
+			throw new IllegalArgumentException("position (" + row + "," + col + ") not in range (0,0) to (7,7)");
 		}
+		return row * 8 + col;
 	}
 	//if row and col are on the board
 	public boolean inRange(int num){
@@ -127,7 +135,7 @@ public class Piece {
 	}
 	@Override
 	public String toString(){
-		return this.side + this.name;
+		return this.side + " " + this.name;
 	}
 	public int getValue(){
 		return this.value;

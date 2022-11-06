@@ -17,12 +17,13 @@ public class Knight extends Piece {
 		int row = rowOf(clickedPieceIndex);
 		int col = colOf(clickedPieceIndex);
 		String side = super.getSide();
-		int[][] directions = [[1,2],[2,1],[-1,2],[2,-1],[1,-2],[-2,1],[-1,-2],[-2,-1]]
 
-		for (int idx = 0; idx < directions.length(); idx++) {
+		int[][] directions = { {1,2},{2,1},{-1,2},{2,-1},{1,-2},{-2,1},{-1,-2},{-2,-1} };
+
+		for (int idx = 0; idx < directions.length; idx++) {
 		    int checkRow = row + directions[idx][0];
 		    int checkCol = col + directions[idx][1];
-		    if (inRange(checkRow, checkCol) &&
+		    if (inRange(checkRow) && inRange(checkCol) &&
 		       (pieces[posToNum(checkRow, checkCol)] == null ||
 		       pieces[posToNum(checkRow, checkCol)].getSide() != side)) {
 		        allowed.add(posToNum(checkRow, checkCol));

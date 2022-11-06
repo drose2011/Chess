@@ -16,21 +16,22 @@ public class Rook extends Piece {
 		ArrayList<Integer> allowed = new ArrayList<Integer>();
 		int row = rowOf(clickedPieceIndex);
 		int col = colOf(clickedPieceIndex);
-		String side = this.getSide()
+		String side = this.getSide();
 		Boolean up=true, down=true, left=true, right=true;
-		
+
+		// TODO: Improve this?		
 		// Add all vertical spots available
-		int start = 0, end = 8;
+		int start = 0, end = 7;
 		for (int checkRow = 0; inRange(checkRow); checkRow++) {
 		    if (pieces[posToNum(checkRow, col)] != null) {
 		        if (checkRow < row) {
 		            start = checkRow;
-		            if (pieces[posToNum(checkRow, col)].getSide(), == side) {
+		            if (pieces[posToNum(checkRow, col)].getSide() == side) {
 		                start++;
 		            }
 		        } else if (checkRow > row) {
 		            end = checkRow;
-		            if (pieces[posToNum(checkRow, col)].getSide(), == side) {
+		            if (pieces[posToNum(checkRow, col)].getSide() == side) {
 		                end--;
 		            }
 		            break;
@@ -44,17 +45,18 @@ public class Rook extends Piece {
 		}
 
 		// Add all horizontal spots available
-		int start = 0, end = 8;
+		start = 0;
+		end = 7;
 		for (int checkCol = 0; inRange(checkCol); checkCol++) {
 		    if (pieces[posToNum(row, checkCol)] != null) {
 		        if (checkCol < col) {
-		            start = checkCow;
-		            if (pieces[posToNum(row, checkCol)].getSide(), == side) {
+		            start = checkCol;
+		            if (pieces[posToNum(row, checkCol)].getSide() == side) {
 		                start++;
 		            }
 		        } else if (checkCol > col) {
 		            end = checkCol;
-		            if (pieces[posToNum(row, checkCol)].getSide(), == side) {
+		            if (pieces[posToNum(row, checkCol)].getSide() == side) {
 		                end--;
 		            }
 		            break;
