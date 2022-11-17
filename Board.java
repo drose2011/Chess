@@ -60,8 +60,8 @@ public class Board {
 						break;
 				}
 			} else if(i / 8 == 1 || i / 8 == 6){
-				this.pieces[i] = new Pawn(side, false);
-			}
+				this.pieces[i] = new Pawn(side, false);	
+			} 
 		}
 	}
 
@@ -74,9 +74,9 @@ public class Board {
 		this.pieces = new Piece[64];
 		for(int i = 0; i < pieces.length; i++){
 			if(pieces[i] != null){
-				if(pieces[i].toString().equals("king")){
+				if(pieces[i].getName().equals("king")){
 					this.pieces[i] = new King(pieces[i].getSide(),pieces[i].hasMoved());
-				} else if(pieces[i].toString().equals("pawn")){
+				} else if(pieces[i].getName().equals("pawn")){
 					this.pieces[i] = new Pawn(pieces[i].getSide(),pieces[i].doublejump());
 				} else {
 					this.pieces[i] = pieces[i];
@@ -181,7 +181,7 @@ public class Board {
 		//checks to make sure it is a valid move
 		isAllowed = isAllowed(this.clickedPieceIndex, index, checking);
 		if(isAllowed){
-			if(this.pieces[this.clickedPieceIndex].toString().equals("king") &&
+			if(this.pieces[this.clickedPieceIndex].getName().equals("king") &&
 			   !this.pieces[this.clickedPieceIndex].hasMoved()){
 				this.pieces[this.clickedPieceIndex].setHasMoved(true);
 				if(index == this.clickedPieceIndex - 2){
@@ -192,7 +192,7 @@ public class Board {
 			}
 
 			// Pawn specific move cases
-			if (this.pieces[this.clickedPieceIndex].toString().equals("pawn")) {
+			if (this.pieces[this.clickedPieceIndex].getName().equals("pawn")) {
 			    // Setting doublejump
 			    if (Math.abs(index - this.clickedPieceIndex) == 16) {
 			        this.pieces[this.clickedPieceIndex].doublejump = true;
@@ -221,73 +221,73 @@ public class Board {
 
 
 	// checks for a check. Goes through every piece's possible moves and checks for a king in there
-	public int checkCheck(int round, Boolean kingtest){
-		for(int i = 0; i < 64; i++){
-			if(this.pieces[i] != null &&
-			   !(kingtest&&this.pieces[i].toString().equals("king"))){
+	// public int checkCheck(int round, Boolean kingtest){
+	// 	for(int i = 0; i < 64; i++){
+	// 		if(this.pieces[i] != null &&
+	// 		   !(kingtest&&this.pieces[i].getName().equals("king"))){
 				
-				int[] allow = this.pieces[i].getAllowed(this.pieces,i);
-				for(int j = 0; j < allow.length; j++){
-					if(this.pieces[allow[j]] != null && this.pieces[allow[j]].toString().equals("king")){
-						int mod=1;
-						if(this.pieces[allow[j]].getSide() == "b"){
-							mod=-1;
-						}
-						//there is check, so now check for checkmate
-						if(round == 0){
-							this.checkallowed = checkCheckMate(this.pieces[i].getSide());
-							if(this.checkallowed.length == 0){
-								this.gameStatus = -2 * mod;
-								return 2 * mod;
-							} 
-						}
-						this.gameStatus = -1 * mod;
-						return  1 * mod;
-					} else {
-						break;
-					}
-				}
-			}
-		}
-		this.gameStatus = 0;
-		return 0;
-	}
+	// 			int[] allow = this.pieces[i].getAllowed(this.pieces,i);
+	// 			for(int j = 0; j < allow.length; j++){
+	// 				if(this.pieces[allow[j]] != null && this.pieces[allow[j]].getName().equals("king")){
+	// 					int mod=1;
+	// 					if(this.pieces[allow[j]].getSide() == "b"){
+	// 						mod=-1;
+	// 					}
+	// 					//there is check, so now check for checkmate
+	// 					if(round == 0){
+	// 						this.checkallowed = checkCheckMate(this.pieces[i].getSide());
+	// 						if(this.checkallowed.length == 0){
+	// 							this.gameStatus = -2 * mod;
+	// 							return 2 * mod;
+	// 						} 
+	// 					}
+	// 					this.gameStatus = -1 * mod;
+	// 					return  1 * mod;
+	// 				} else {
+	// 					break;
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// 	this.gameStatus = 0;
+	// 	return 0;
+	// }
 
 	// checks every possible move to see if one results in the person no longer being in check
 	// it returns a 2D array with every possible move out of check(empty if check mate)
-	public int[][] checkCheckMate(String side){
-		ArrayList<int[]> list = new ArrayList<int[]>();
-		for(int i = 0; i < this.pieces.length; i++){
-			if(this.pieces[i] != null && this.pieces[i].getSide() != side){
-				int[] allow = this.pieces[i].getAllowed(this.pieces,i);
-				Board temp;
-				for(int j = 0; j < allow.length; j++){
-					int test;
-					if(side == "b"){
-						test = 0;
-					} else {
-						test = 1;
-					}
+	// public int[][] checkCheckMate(String side){
+	// 	ArrayList<int[]> list = new ArrayList<int[]>();
+	// 	for(int i = 0; i < this.pieces.length; i++){
+	// 		if(this.pieces[i] != null && this.pieces[i].getSide() != side){
+	// 			int[] allow = this.pieces[i].getAllowed(this.pieces,i);
+	// 			Board temp;
+	// 			for(int j = 0; j < allow.length; j++){
+	// 				int test;
+	// 				if(side == "b"){
+	// 					test = 0;
+	// 				} else {
+	// 					test = 1;
+	// 				}
 
-					//if this move does that, it stores it
-					temp=new Board(this.pieces, test);
-					temp.clicked(i, true);
-					temp.clicked(allow[j], true);
+	// 				//if this move does that, it stores it
+	// 				temp=new Board(this.pieces, test);
+	// 				temp.clicked(i, true);
+	// 				temp.clicked(allow[j], true);
 	
-					//kinda recursively calls checkCheck
-					if(temp.checkCheck(1,false)==0){
-						int[] arr = {i,allow[j]};
-						list.add(arr);
-					}
-				}
-			}
-		}
-		int[][] arr = new int[list.size()][2];
-		for(int i = 0; i < list.size(); i++){
-			arr[i] = list.get(i);
-		}
-		return arr;
-	}
+	// 				//kinda recursively calls checkCheck
+	// 				if(temp.checkCheck(1,false)==0){
+	// 					int[] arr = {i,allow[j]};
+	// 					list.add(arr);
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// 	int[][] arr = new int[list.size()][2];
+	// 	for(int i = 0; i < list.size(); i++){
+	// 		arr[i] = list.get(i);
+	// 	}
+	// 	return arr;
+	// }
 
 
 	//returns every single possible move with the current board state in a 2D array.
@@ -322,6 +322,23 @@ public class Board {
 		}
 		return arr;
 	}
+
+	// // Adds special moves (Castle)
+	// public int[] getAllowedSpecial(int clickedPieceIndex){
+	// 	int[] normalAllowedSpots = this.pieces[start].getAllowed(this.pieces, clickedPieceIndex);
+	// 	// Castle
+
+	// 	// Queen side (left)
+	// 	Piece clickedPiece = this.pieces[clickedPieceIndex];
+	// 	int lRookPos = clickedPieceIndex - (clickedPieceIndex % 8);
+	// 	int rRookPos = lRookPos + 7;
+	// 	boolean rookAllowed = this.pieces[lRookPos] != null &&
+	// 		this.pieces[lRookPos].getN
+	// 		this.pieces[lRookPos].getSide() == this.pieces[clickedPieceIndex].getSide() &&
+	// 		this.pieces[lRookPos].hasMoved() == false &&
+
+	// 	if(!clickedPiece.hasMoved() && )
+	// }
 
 	// checks for the pieces allowed moves and check status to ensure it is a valid move
 	public Boolean isAllowed(int start, int end, Boolean checking){

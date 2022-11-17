@@ -17,6 +17,7 @@ public class Piece {
 	private String name; 
 	private int value; 		// 1 = pawn, 3 = bishop/knight, 5 = rook, 9 = queen, 1000 = king
 
+	public Boolean hasMoved;
 	public Boolean doublejump;
 
 	public Piece(String name, String side) {
@@ -107,7 +108,16 @@ public class Piece {
 	// methods defined in (some) later classes, but needed here to be able to call in Piece[]
 	// TODO: are these necissary?
 	public int[] getAllowed(Piece[] board, int clickedPieceIndex){
+		ArrayList<Integer> allPossible = getPiecePossible(board, clickedPieceIndex);
+		for(move in allPossible) {
+			// Remove all moves that put moving team into check
+			// For each move, check if any of other team pieces are attacking king
+			// if so, remove it
+		}
 		return null;
+	}
+	public ArrayList<Integer> getPiecePossible(Piece[] board, int clickedPieceIndex){
+
 	}
 	public Boolean doublejump(){
 		return null;
@@ -132,6 +142,9 @@ public class Piece {
 	}
 	public String getSide(){
 		return this.side;
+	}
+	public String getName(){
+		return this.name;
 	}
 	@Override
 	public String toString(){

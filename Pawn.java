@@ -25,8 +25,8 @@ public class Pawn extends Piece {
 		ArrayList<Integer> allowed = new ArrayList<Integer>();
 		int row = rowOf(clickedPieceIndex);
 		int col = colOf(clickedPieceIndex);
-		String side = super.getSide();
-		int dirc = super.getSideMod();
+		String side = this.getSide();
+		int dirc = this.getSideMod();
 
 		if(inRange(row + dirc)){
 			//allowed to move one forward if nothing is there
@@ -59,19 +59,19 @@ public class Pawn extends Piece {
 		//en passant
 		if(inRange(col + 1) &&
 		   pieces[posToNum(row, (col + 1))] != null &&
-		   pieces[posToNum(row,(col+1))].toString() == "pawn" &&
+		   pieces[posToNum(row,(col+1))].getName() == "pawn" &&
 		   pieces[posToNum(row,(col+1))].getSide() != side &&
 		   pieces[posToNum(row,(col+1))].doublejump()==true){
 			allowed.add(posToNum(row + dirc, col + 1));
 		}
 		if(inRange(col-1) &&
 		   pieces[posToNum(row,(col-1))] != null &&
-		   pieces[posToNum(row,(col-1))].toString() == "pawn" &&
+		   pieces[posToNum(row,(col-1))].getName() == "pawn" &&
 		   pieces[posToNum(row,(col-1))].getSide() != side &&
 		   pieces[posToNum(row,(col-1))].doublejump() == true){
 			allowed.add(posToNum(row + dirc, col - 1));
 		}
 
-		return super.arrListToArr(allowed);
+		return arrListToArr(allowed);
 	}
 }

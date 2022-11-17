@@ -1,0 +1,11 @@
+- Continue Testing program
+	- Test each pieces get allowed
+	- include castle, en passent, check, and check mate tests
+- Clean up castle test
+	- Rook hasn't moved
+		- Make each piece have a has moved value
+		- can use for en passent as well
+	- can't move through out OUT of check (check check before moving and moving through
+- Add filter function to piece class to take all possible given moves by each piece, and remove all that result in a check
+- Make checkmate check for opposite team after each move
+- Add check check func to piece class (take in board and side you want to check if they are under check)

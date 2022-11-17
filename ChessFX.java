@@ -48,7 +48,7 @@ public class ChessFX extends Application {
 			buttons[i].setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			// Gives the same function to every button, but eachone will give back a uniqe
-			//input using stored memory
+			// input using stored memory
 			public void handle(ActionEvent e) {
 				board.clicked(address.indexOf(e.getSource().toString()), false);
 				if(Math.abs(board.gameStatus()) == 2){
@@ -72,13 +72,16 @@ public class ChessFX extends Application {
 					}
 					board.clicked(compmv[0], false);
 					board.clicked(compmv[1], false);
-				}
+					
+				} 
+
 				//update display and window
 				updatedisp(board,buttonflow);
 				stage.setTitle("Chess, "+board.getTurn()+" turn");
 				scene.setRoot(disp);
 				stage.setScene(scene);
 				stage.show();
+				
 			}
 		});
 		}

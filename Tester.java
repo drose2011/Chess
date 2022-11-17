@@ -1,10 +1,12 @@
+import java.util.*;
+
 public class Tester {
-    // TODO: compleate this test for peice
-    // int[] testIntArr = new int[4] {[1,2,3,4]};
+    static int[] testIntArr = new int[]{1,2,3,4};
+    static ArrayList<Integer> testArrList = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
 
     public static void main(String[] args){
-        // testPiece();
-        testRook();
+        testPiece();
+        // testRook();
     }
 
     public static void testRook() {
@@ -14,7 +16,6 @@ public class Tester {
         // System.out.println(rook.getAllowed());
     }
 
-    // TODO: Last peice test (arrListToArr)
     private static void testPiece() {
         // Does not test getAllowed(), doublejump(), hasMoved(), setHasMoved()
         Piece testPiece = new Piece("king", "w");
@@ -24,8 +25,7 @@ public class Tester {
         System.out.println("\tValue: " + testPiece.getValue());
         System.out.println("\tSide Mod: " + testPiece.getSideMod());
         System.out.println("\tImage: " + testPiece.getImage());
-        // ArrayList<Integer> testArrList = new ArrayList<Integer>(testIntArr);
-        // System.out.println(testPiece.arrListToArr(testArrList));
+        System.out.println("\tArrayList: " + testArrList + " to array: " + Arrays.toString(testPiece.arrListToArr(testArrList)));
         System.out.println("\tCol of 0: " + testPiece.colOf(0) +  
             ", Col of 7: " + testPiece.colOf(7) + 
             ", Col of 56: " + testPiece.colOf(56) + 

@@ -8,7 +8,6 @@ The King class:
 */
 
 public class King extends Piece {
-	private Boolean hasMoved;
 	public King(String side, Boolean hasMoved) {
 		super("king",side);
 		this.hasMoved=hasMoved;
@@ -45,7 +44,7 @@ public class King extends Piece {
 			Boolean allo;
 			// allows it on the left
 			if(pieces[posToNum(row,0)] != null &&
-			   pieces[posToNum(row,0)].toString().equals("rook") &&
+			   pieces[posToNum(row,0)].getName().equals("rook") &&
 			   pieces[posToNum(row,1)] == null && pieces[posToNum(row,2)] == null &&
 			   pieces[posToNum(row,3)] == null){
 				allo=true;
@@ -62,7 +61,7 @@ public class King extends Piece {
 				}
 			}
 			//allows it on the right
-			if(pieces[posToNum(row,7)] != null && pieces[posToNum(row,7)].toString().equals("rook") && pieces[posToNum(row,6)] == null && pieces[posToNum(row,5)] == null){
+			if(pieces[posToNum(row,7)] != null && pieces[posToNum(row,7)].getName().equals("rook") && pieces[posToNum(row,6)] == null && pieces[posToNum(row,5)] == null){
 				allo = true;
 				for(int i = 6; i > 4; i--){
 					Board temp = new Board(pieces,0);
